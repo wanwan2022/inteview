@@ -17,3 +17,29 @@
 一、半同步复制，解决主库数据可能丢失的问题
 <img width="868" alt="image" src="https://user-images.githubusercontent.com/102338681/185834762-cf30a730-1be7-477e-aec2-c7610b4906a5.png">
 ![image](https://user-images.githubusercontent.com/102338681/185834780-d6fec9bf-41b1-48df-b280-c975913c42bd.png)
+
+explain 返回各列的含义
+
+![image](https://user-images.githubusercontent.com/102338681/185840915-c0d4fda8-e19b-4997-901e-f879561a3d98.png)
+
+1、id ：每个select有一个
+2、select_type : select 对应的查询类型
+3、table : 表名
+4、type: 针对单表的访问方法 
+   1、const 当我们根据主键或者唯一二级索引列与常数进行等值匹配时，对单表的访问方法就是const
+   2、ep_ref在连接查询时，如果被驱动表是通过主键或者唯一二级索引列等值匹配的方式进行访问的（如果该主键或者唯一二级索引是联合索引的话，所有的索引列都必须进行等值比较）。则对该被驱动表的访问方法就是eq_ref
+   3、ref :当通过普通的二级索引列与常量进行等值匹配时来查询某个表，那么对该表的访问方法就可能是ref
+   4、range 范围查询
+   ` EXPLAIN SELECT * FROM s1 WHERE key1 IN ('a', 'b', 'c');`
+   ` EXPLAIN SELECT * FROM s1 WHERE key1 > 'a' AND key1 < 'b';`
+   5、index 当我们可以使用索引覆盖，但需要扫描全部的索引记录时，该表的访问方法就是index
+   6、all 全表扫描
+   
+5、possible_keys
+6、key
+7、key_len
+8、ref
+9、rows
+10、extra
+
+   
